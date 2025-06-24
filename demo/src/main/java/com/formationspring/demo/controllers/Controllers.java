@@ -1,0 +1,40 @@
+package com.formationspring.demo.controllers;
+
+import com.formationspring.demo.entity.UserEntity;
+import com.formationspring.demo.services.ServiceUser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+@RestController
+public class Controllers {
+
+    private final ServiceUser serviceUser;
+
+    @Autowired
+    public Controllers(ServiceUser serviceUser){
+        this.serviceUser = serviceUser;
+    }
+
+    @GetMapping("/")
+    public Map<String, UserEntity> getUserAll() {
+        return serviceUser.getAllUsers();
+    }
+    @GetMapping("/user")
+    public Map<String, UserEntity> getUserRandom() {
+        Random random = new Random();
+        List<UserEntity> users = List.of(
+                new UserEntity(1L, "nom 1", "prenom 1"),
+                new UserEntity(2L, "nom 2", "prenom 2"),
+                new UserEntity(3L, "nom 3", "prenom 3")
+        );
+
+        UserEntity randomUser = users.get(random.nextInt(users.size()));
+        return Map.of("user", randomUser);
+    }
+
+}

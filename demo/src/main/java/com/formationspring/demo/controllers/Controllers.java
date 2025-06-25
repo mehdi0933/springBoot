@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -27,7 +28,15 @@ public class Controllers {
     public boolean vrai() {
         return true;
     }
-
+    @GetMapping("/userjpa")
+    public Map<String, UserEntity> getUsersAll() {
+        List<UserEntity> userList = userRepositoryJpa.findAll();
+        Map<String, UserEntity> users = new HashMap<>();
+        for (UserEntity user : userList) {
+            users.put(String.valueOf(user.getId()), user);
+        }
+        return users;
+    }
     @GetMapping("/userAll")
     public Map<String, UserEntity> getUserAll() {
         return userRepository.getAllUsers();

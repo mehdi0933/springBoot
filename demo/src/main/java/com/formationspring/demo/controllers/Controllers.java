@@ -32,7 +32,7 @@ public class Controllers {
     public Map<String, UserEntity> getUserAll() {
         return userRepository.getAllUsers();
     }
-    @GetMapping("/user")
+    @GetMapping("/userRandom")
     public Map<String, UserEntity> getUserRandom() {
         Random random = new Random();
         List<UserEntity> users = List.of(

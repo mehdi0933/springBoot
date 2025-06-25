@@ -7,10 +7,6 @@ import java.util.Map;
 
 @Repository
 public interface IUserRepository {
-
     Map<String, UserEntity> getAllUsers();
-
     Map<String, UserEntity> getAllUser();
-
-    ;
 }

@@ -28,7 +28,7 @@ public class Controllers {
         return true;
     }
 
-    @GetMapping("/")
+    @GetMapping("/userAll")
     public Map<String, UserEntity> getUserAll() {
         return userRepository.getAllUsers();
     }

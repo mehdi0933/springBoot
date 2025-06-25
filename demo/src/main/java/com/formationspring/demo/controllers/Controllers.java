@@ -1,6 +1,8 @@
 package com.formationspring.demo.controllers;
 
 import com.formationspring.demo.entity.UserEntity;
+import com.formationspring.demo.services.IUserRepository;
+import com.formationspring.demo.services.IUserRepositoryJpa;
 import com.formationspring.demo.services.ServiceUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,16 +15,19 @@ import java.util.Random;
 @RestController
 public class Controllers {
 
-    private final ServiceUser serviceUser;
+    private final IUserRepository userRepository;
+    private final IUserRepositoryJpa userRepositoryJpa;
 
     @Autowired
-    public Controllers(ServiceUser serviceUser){
-        this.serviceUser = serviceUser;
+    public Controllers(IUserRepository userRepository, IUserRepositoryJpa userRepositoryJpa){
+        this.userRepository = userRepository;
+        this.userRepositoryJpa = userRepositoryJpa;
     }
+
 
     @GetMapping("/")
     public Map<String, UserEntity> getUserAll() {
-        return serviceUser.getAllUsers();
+        return userRepository.getAllUsers();
     }
     @GetMapping("/user")
     public Map<String, UserEntity> getUserRandom() {

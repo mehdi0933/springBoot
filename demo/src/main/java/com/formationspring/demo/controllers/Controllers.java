@@ -3,7 +3,6 @@ package com.formationspring.demo.controllers;
 import com.formationspring.demo.entity.UserEntity;
 import com.formationspring.demo.services.IUserRepository;
 import com.formationspring.demo.services.IUserRepositoryJpa;
-import com.formationspring.demo.services.ServiceUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +23,10 @@ public class Controllers {
         this.userRepositoryJpa = userRepositoryJpa;
     }
 
+    @GetMapping("/true")
+    public boolean vrai() {
+        return true;
+    }
 
     @GetMapping("/")
     public Map<String, UserEntity> getUserAll() {

@@ -1,18 +1,19 @@
 package com.formationspring.demo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 
-@Table(name = "users")//
+@Table(name = "personne")//
 @Entity
 public class UserEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
+    @Column(name = "first_name")
     private String firstName;
+    @Column(name = "last_name")
     private String lastName;
 
     public UserEntity(Long id, String firstName, String lastName) {
@@ -20,7 +21,8 @@ public class UserEntity {
         this.firstName = firstName;
         this.lastName = lastName;
     }
-
+    public UserEntity() {
+    }
     public Long getId() {
         return id;
     }

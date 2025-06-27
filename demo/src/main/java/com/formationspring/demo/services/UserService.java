@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class UserService implements IUserRepository {
+public class UserService implements IUserDataAcces {
 
     private final IUserRepositoryJpa userRepositoryJpa;
 

@@ -24,13 +24,13 @@ public class UserControllers {
         return true;
     }
 
-    @PostMapping("/users")
+    @PostMapping("/user")
     public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity user) {
         UserEntity savedUser = userService.save(user);
         return ResponseEntity.ok(savedUser);
     }
 
-    @GetMapping("/users")
+    @GetMapping("/user")
     public ResponseEntity<List<UserEntity>> getAllUsers() {
         List<UserEntity> users = userService.findAll();
         return ResponseEntity.ok(users);

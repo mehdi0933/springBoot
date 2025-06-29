@@ -2,6 +2,8 @@ package com.formationspring.demo.config;
 
 import com.formationspring.demo.entity.UserEntity;
 import com.formationspring.demo.services.IUserDataAcces;
+import com.formationspring.demo.services.IUserRepositoryJpa;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,6 +13,11 @@ import java.util.Map;
 
 @Configuration
 public class UserConfig {
+    private final IUserRepositoryJpa userRepository;
+
+    public UserConfig(IUserRepositoryJpa userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Bean
     public IUserDataAcces userDataAcces() {
@@ -32,9 +39,11 @@ public class UserConfig {
         };
     }
 
-
     @Bean
-    public UserEntity BddUser() {
-        return new UserEntity(null, "prenom 1", "nom 1");
+    public CommandLineRunner userSave() {
+        return args -> {
+            UserEntity user = new UserEntity(null, "prenom 1", "nom 1");
+            userRepository.save(user);
+        };
     }
 }

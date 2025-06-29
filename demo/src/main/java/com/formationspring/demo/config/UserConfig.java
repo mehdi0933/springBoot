@@ -31,4 +31,10 @@ public class UserConfig {
             }
         };
     }
+
+
+    @Bean
+    public UserEntity BddUser() {
+        return new UserEntity(null, "prenom 1", "nom 1");
+    }
 }

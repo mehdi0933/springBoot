@@ -29,11 +29,6 @@ public class UserConfig {
             public Map<String, UserEntity> getAllUsers() {
                 return users;
             }
-
-            @Override
-            public Map<String, UserEntity> getAllUser() {
-                return users;
-            }
         };
     }
 }

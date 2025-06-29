@@ -18,29 +18,19 @@ public class UserService implements IUserDataAcces {
     }
 
 
-    public UserEntity save(UserEntity user) {
-        return userRepositoryJpa.save(user);
-    }
 
     public List<UserEntity> findAll() {
         return userRepositoryJpa.findAll();
     }
 
-    public void run(String... args) {
-        UserEntity user = new UserEntity();
-        user.setFirstName("prenom 1");
-        user.setLastName("nom 1");
-
-        userRepositoryJpa.save(user);
-
-    }
 
     @Override
     public Map<String, UserEntity> getAllUsers() {
+        List<UserEntity> userList = userRepositoryJpa.findAll();
         Map<String, UserEntity> users = new HashMap<>();
-        users.put("1", new UserEntity(1L, "prenom 1", "nom 1"));
-        users.put("2", new UserEntity(2L, "prenom 2", "nom 2"));
-        users.put("3", new UserEntity(3L, "prenom 3", "nom 3"));
+        for (UserEntity user : userList) {
+            users.put(String.valueOf(user.getId()), user);
+        }
         return users;
     }
 

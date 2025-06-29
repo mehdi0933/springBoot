@@ -24,11 +24,6 @@ public class UserControllers {
         return true;
     }
 
-    @PostMapping("/user")
-    public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity user) {
-        UserEntity savedUser = userService.save(user);
-        return ResponseEntity.ok(savedUser);
-    }
 
     @GetMapping("/user")
     public ResponseEntity<List<UserEntity>> getAllUsers() {
@@ -36,8 +31,8 @@ public class UserControllers {
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("/user/Random")
-    public Map<String, UserEntity> getUserRandom() {
+    @GetMapping("/user/random")
+    public ResponseEntity<Map<String, UserEntity>> getUserRandom() {
         Random random = new Random();
         List<UserEntity> users = List.of(
                 new UserEntity(1L, "nom 1", "prenom 1"),
@@ -46,6 +41,7 @@ public class UserControllers {
         );
 
         UserEntity randomUser = users.get(random.nextInt(users.size()));
-        return Map.of("user", randomUser);
+        return ResponseEntity.ok(Map.of("user", randomUser));
     }
+
 }

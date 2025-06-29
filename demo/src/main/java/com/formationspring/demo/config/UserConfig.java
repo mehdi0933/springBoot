@@ -26,7 +26,7 @@ public class UserConfig {
             private final Map<String, UserEntity> users;
 
             {
-                users = new HashMap<>();
+                this.users = new HashMap<>();
                 users.put("1", new UserEntity(1L, "prenom 1", "nom 1"));
                 users.put("2", new UserEntity(2L, "prenom 2", "nom 2"));
                 users.put("3", new UserEntity(3L, "prenom 3", "nom 3"));

@@ -34,11 +34,7 @@ public class UserControllers {
     @GetMapping("/user/random")
     public ResponseEntity<Map<String, UserEntity>> getUserRandom() {
         Random random = new Random();
-        List<UserEntity> users = List.of(
-                new UserEntity(1L, "nom 1", "prenom 1"),
-                new UserEntity(2L, "nom 2", "prenom 2"),
-                new UserEntity(3L, "nom 3", "prenom 3")
-        );
+        List<UserEntity> users = userService.findAll();
 
         UserEntity randomUser = users.get(random.nextInt(users.size()));
         return ResponseEntity.ok(Map.of("user", randomUser));

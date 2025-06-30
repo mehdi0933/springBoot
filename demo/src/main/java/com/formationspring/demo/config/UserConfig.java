@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import java.util.HashMap;
 import java.util.Map;
 
-
 @Configuration
 public class UserConfig {
     private final IUserRepositoryJpa userRepository;
@@ -32,7 +31,6 @@ public class UserConfig {
                 users.put("3", new UserEntity(3L, "prenom 3", "nom 3"));
             }
 
-            @Override
             public Map<String, UserEntity> getAllUsers() {
                 return users;
             }
@@ -42,8 +40,9 @@ public class UserConfig {
     @Bean
     public CommandLineRunner userSave() {
         return args -> {
-            UserEntity user = new UserEntity(null, "prenom 1", "nom 1");
-            userRepository.save(user);
+            userRepository.save(new UserEntity(null, "prenom 1", "nom 1"));
+            userRepository.save(new UserEntity(null, "prenom 2", "nom 2"));
+            userRepository.save(new UserEntity(null, "prenom 3", "nom 3"));
         };
     }
 }

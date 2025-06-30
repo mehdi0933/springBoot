@@ -1,4 +1,4 @@
-package com.formationspring.demo.controller;
+package com.formationspring.demo.UserControllers;
 
 import com.formationspring.demo.entity.UserEntity;
 import com.formationspring.demo.services.UserService;
@@ -26,8 +26,14 @@ public class UserControllers {
 
 
     @GetMapping("/user")
-    public ResponseEntity<List<UserEntity>> getAllUsers() {
+    public ResponseEntity<List<UserEntity>> getAllUser() {
         List<UserEntity> users = userService.findAll();
+        return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("/users/hard/code")
+    public ResponseEntity<List<UserEntity>> getAllUsers() {
+        List<UserEntity> users = userService.getAllUsers().values().stream().toList();
         return ResponseEntity.ok(users);
     }
 

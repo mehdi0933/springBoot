@@ -1,9 +1,10 @@
 package com.formationspring.demo.services;
 
 import com.formationspring.demo.entity.UserEntity;
+import com.formationspring.demo.services.IUserDataAcces;
+import com.formationspring.demo.services.IUserRepositoryJpa;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,28 +12,20 @@ import java.util.Map;
 public class UserService implements IUserDataAcces {
 
     private final IUserRepositoryJpa userRepositoryJpa;
+    private final IUserDataAcces userDataAcces;
 
 
-    public UserService(IUserRepositoryJpa userRepositoryJpa){
+    public UserService(IUserRepositoryJpa userRepositoryJpa, IUserDataAcces userDataAcces){
         this.userRepositoryJpa = userRepositoryJpa;
+        this.userDataAcces = userDataAcces;
     }
-
-
 
     public List<UserEntity> findAll() {
         return userRepositoryJpa.findAll();
     }
 
-
     @Override
     public Map<String, UserEntity> getAllUsers() {
-        List<UserEntity> userList = userRepositoryJpa.findAll();
-        Map<String, UserEntity> users = new HashMap<>();
-        for (UserEntity user : userList) {
-            users.put(String.valueOf(user.getId()), user);
-        }
-        return users;
+        return userDataAcces.getAllUsers();
     }
-
-
 }

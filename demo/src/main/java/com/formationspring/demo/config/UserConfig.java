@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Configuration
 public class UserConfig {
-    private final IUserRepositoryJpa userRepository;
+    private final IUserRepositoryJpa  ;
 
     public UserConfig(IUserRepositoryJpa userRepository) {
         this.userRepository = userRepository;

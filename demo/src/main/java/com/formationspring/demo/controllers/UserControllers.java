@@ -1,6 +1,7 @@
 package com.formationspring.demo.UserControllers;
 
 import com.formationspring.demo.entity.UserEntity;
+import com.formationspring.demo.services.IUserDataAcces;
 import com.formationspring.demo.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +12,9 @@ import java.util.List;
 @RequestMapping("/")
 public class UserControllers {
 
-    private final UserService userService;
+    private final IUserDataAcces userService;
 
-    public UserControllers(UserService userService) {
+    public UserControllers(IUserDataAcces userService) {
         this.userService = userService;
     }
 

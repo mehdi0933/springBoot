@@ -12,18 +12,17 @@ public class ServiceApi implements IApi {
     }
 
 
-    @Override
-    public <Post> Post getPostById(int id) {
-        return (Post) webClient.get()
+
+    public ApiEntity getPostById(int id) {
+        return webClient.get()
                 .uri("/posts/{id}", id)
                 .retrieve()
                 .bodyToMono(ApiEntity.class)
                 .block();
     }
-
     @Override
-    public <Post> Post createPost(Post post) {
-        return (Post) webClient.post()
+    public ApiEntity createPost(ApiEntity post) {
+        return (ApiEntity) webClient.post()
                 .uri("/posts")
                 .bodyValue(post)
                 .retrieve()

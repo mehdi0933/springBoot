@@ -1,7 +1,10 @@
 package com.formationspring.demo.services;
 
+import com.formationspring.demo.entity.ApiEntity;
+
 public interface IApi {
 
-    <Post> Post getPostById(int id);
-    <Post> Post createPost(Post post);
+    ApiEntity getPostById(int id);
+
+    ApiEntity createPost(ApiEntity post);
 }

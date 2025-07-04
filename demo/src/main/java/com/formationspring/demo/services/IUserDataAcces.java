@@ -1,9 +1,9 @@
 package com.formationspring.demo.services;
 
 import com.formationspring.demo.entity.UserEntity;
-
-import java.util.Map;
+import java.util.List;
 
 public interface IUserDataAcces {
-    Map<String, UserEntity> getAllUsers();
+    List<UserEntity> getAllUsers();
+    List<UserEntity> saveAllUsers(List<UserEntity> users);
 }

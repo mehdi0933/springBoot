@@ -1,24 +1,24 @@
 package com.formationspring.demo.entity;
-
 import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "ApiEntity")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
-public class UserEntity {
+public class ApiEntity {
 
+    private int id;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int userId;
 
-    @Column(name = "first_name")
-    private String firstName;
+    private String title;
+    private String body;
 
-    @Column(name = "last_name")
-    private String lastName;
 }

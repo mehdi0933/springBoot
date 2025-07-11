@@ -16,7 +16,6 @@ public class ServiceMistralAi implements ISaveMistralAi{
 
     @Override
     public void save (String promptMsg,String apiKey, String url) {
-        System.out.println("Saving promptMsg: " + promptMsg);
         EntityMistialAi entity = new EntityMistialAi();
         entity.setPromptMsg(promptMsg);
         LocalDateTime searchDateTime = null;

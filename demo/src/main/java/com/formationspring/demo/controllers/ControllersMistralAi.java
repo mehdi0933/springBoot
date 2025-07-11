@@ -1,5 +1,7 @@
 package com.formationspring.demo.controllers;
 
+import com.formationspring.demo.services.IMistralAiRepository;
+import com.formationspring.demo.services.ISaveMistralAi;
 import com.formationspring.demo.services.ServiceMistralAi;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +17,10 @@ import java.time.LocalDateTime;
 @RequestMapping("")
 public class ControllersMistralAi {
 
-    private final ServiceMistralAi serviceMistralAi;
+   private ISaveMistralAi saveMistralAi;
 
-    public ControllersMistralAi(ServiceMistralAi serviceMistralAi) {
-        this.serviceMistralAi = serviceMistralAi;
+    public ControllersMistralAi(ISaveMistralAi saveMistralAi) {
+        this.saveMistralAi = saveMistralAi;
     }
 
     @GetMapping("/ai")
@@ -47,9 +49,8 @@ public class ControllersMistralAi {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         String apiResponse = response.body();
-        serviceMistralAi.save(promptMsg,apiKey, url);
 
-
+        saveMistralAi.save(promptMsg,apiKey, url);
 
         return ResponseEntity.ok(apiResponse + "\n" + LocalDateTime.now());
     }

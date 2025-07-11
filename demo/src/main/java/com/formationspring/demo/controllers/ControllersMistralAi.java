@@ -21,13 +21,12 @@ public class ControllersMistralAi {
         this.serviceMistralAi = serviceMistralAi;
     }
 
-    @PostMapping("/ai")
-    public ResponseEntity<String> search(@RequestBody String promptMsg) throws IOException, InterruptedException {
+    @GetMapping("/ai")
+    public ResponseEntity<String> search(@RequestParam String promptMsg,   @RequestParam String apiKey ) throws IOException, InterruptedException {
 
-        serviceMistralAi.save(promptMsg);
+        String url = "https://openrouter.ai/api/v1/chat/completions";
+       // String apiKey = "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";
 
-
-        String apiKey = "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";
         String requestBody = """
         {
             "model": "mistralai/mistral-7b-instruct:free",
@@ -37,16 +36,20 @@ public class ControllersMistralAi {
         }
         """.formatted(promptMsg);
         System.out.println(promptMsg);
+
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://openrouter.ai/api/v1/chat/completions"))
+                .uri(URI.create(url))
                 .header("Content-Type", "application/json")
-                .header("Authorization", apiKey)
+                .header("Authorization", apiKey.trim())
                 .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         String apiResponse = response.body();
+        serviceMistralAi.save(promptMsg,apiKey, url);
+
+
 
         return ResponseEntity.ok(apiResponse + "\n" + LocalDateTime.now());
     }

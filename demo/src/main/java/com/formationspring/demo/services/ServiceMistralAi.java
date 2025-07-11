@@ -6,18 +6,24 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 @Service
-public class ServiceMistralAi {
+public class ServiceMistralAi implements ISaveMistralAi{
 
     final IMistralAiRepository mistralAiRepository;
 
     public ServiceMistralAi(IMistralAiRepository mistralAiRepository) {
         this.mistralAiRepository = mistralAiRepository;
     }
-    public void save (String promptMsg) {
+
+    @Override
+    public void save (String promptMsg,String apiKey, String url) {
         System.out.println("Saving promptMsg: " + promptMsg);
         EntityMistialAi entity = new EntityMistialAi();
         entity.setPromptMsg(promptMsg);
-        entity.setSearchDateTime(LocalDateTime.now());
+        LocalDateTime searchDateTime = null;
+        entity.setSearchDateTime(searchDateTime != null ? searchDateTime : LocalDateTime.now());
+        entity.setApiKey(apiKey);
+        entity.setUrl(url);
         mistralAiRepository.save(entity);
     }
+
 }

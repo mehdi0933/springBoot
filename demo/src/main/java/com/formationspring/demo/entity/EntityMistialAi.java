@@ -19,5 +19,7 @@ public class EntityMistialAi {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String promptMsg;
+    private String url;
+    private String apiKey;
     private LocalDateTime searchDateTime;
 }

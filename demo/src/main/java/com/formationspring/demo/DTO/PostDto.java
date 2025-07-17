@@ -18,7 +18,7 @@ public class PostDto {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    public static class PostInputDto {
+    public static class InputDto {
         private String title;
         private String body;
     }
@@ -28,14 +28,14 @@ public class PostDto {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    public static class PostOutputDto {
+    public static class OutputDto {
         private int userId;
         private int id;
         private String title;
         private String body;
     }
 
-    public static PostDto fromInput(PostInputDto inputDto) {
+    public static PostDto fromInput(InputDto inputDto) {
         return PostDto.builder()
                 .title(inputDto.getTitle())
                 .body(inputDto.getBody())
@@ -43,8 +43,8 @@ public class PostDto {
     }
 
 
-    public static PostOutputDto toOutput(PostDto postDto) {
-        return PostOutputDto.builder()
+    public static OutputDto toOutput(PostDto postDto) {
+        return OutputDto.builder()
                 .userId(postDto.getUserId())
                 .id(postDto.getId())
                 .title(postDto.getTitle())

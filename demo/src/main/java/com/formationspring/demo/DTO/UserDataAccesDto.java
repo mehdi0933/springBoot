@@ -18,7 +18,7 @@ public class UserDataAccesDto {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    public static class UserInputDto {
+    public static class InputDto {
         private Long id;
         private String firstName;
         private String lastName;
@@ -28,13 +28,13 @@ public class UserDataAccesDto {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    public static class UserOutputDto {
+    public static class OutputDto {
         private Long id;
         private String firstName;
         private String lastName;
     }
 
-    public static UserDataAccesDto fromInput(UserInputDto inputDto) {
+    public static UserDataAccesDto fromInput(InputDto inputDto) {
         return UserDataAccesDto.builder()
                 .id(inputDto.getId())
                 .firstName(inputDto.getFirstName())
@@ -42,8 +42,8 @@ public class UserDataAccesDto {
                 .build();
     }
 
-    public static UserOutputDto toOutput(UserDataAccesDto userDto) {
-        return UserOutputDto.builder()
+    public static OutputDto toOutput(UserDataAccesDto userDto) {
+        return OutputDto.builder()
                 .id(userDto.getId())
                 .firstName(userDto.getFirstName())
                 .lastName(userDto.getLastName())

@@ -19,13 +19,13 @@ public class UserDataAccesRestController {
     }
 
     @GetMapping("users/get")
-    public List<UserDataAccesDto.UserOutputDto> getAllUsers() {
+    public List<UserDataAccesDto.OutputDto> getAllUsers() {
         return userService.getAllUsers();
     }
 
 
     @PostMapping("users/post")
-    public List<UserDataAccesDto.UserOutputDto> saveAllUsers(@RequestBody List<UserDataAccesDto.UserInputDto> users) {
+    public List<UserDataAccesDto.OutputDto> saveAllUsers(@RequestBody List<UserDataAccesDto.InputDto> users) {
         return userService.saveAllUsers(users);
     }
 

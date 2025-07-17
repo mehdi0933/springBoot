@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface UserDataAccesInterface {
 
-    List<UserDataAccesDto.UserOutputDto> getAllUsers();
-    List<UserDataAccesDto.UserOutputDto> saveAllUsers(List<UserDataAccesDto.UserInputDto> users);
+    List<UserDataAccesDto.OutputDto> getAllUsers();
+    List<UserDataAccesDto.OutputDto> saveAllUsers(List<UserDataAccesDto.InputDto> users);
 }

@@ -16,14 +16,14 @@ public class PostService implements PostInterface {
     }
 
     @Override
-    public PostDto.PostOutputDto findPostById(int id) {
+    public PostDto.OutputDto findPostById(int id) {
         ArticleEntity entity = webClient.get()
                 .uri("/posts/{id}", id)
                 .retrieve()
                 .bodyToMono(ArticleEntity.class)
                 .block();
 
-        return PostDto.PostOutputDto.builder()
+        return PostDto.OutputDto.builder()
                 .id(entity.getId())
                 .userId(entity.getUserId())
                 .title(entity.getTitle())
@@ -32,7 +32,7 @@ public class PostService implements PostInterface {
     }
 
     @Override
-    public PostDto.PostOutputDto createPost(PostDto postDto) {
+    public PostDto.OutputDto createPost(PostDto postDto) {
         ArticleEntity created = webClient.post()
                 .uri("/posts")
                 .bodyValue(postDto)
@@ -40,7 +40,7 @@ public class PostService implements PostInterface {
                 .bodyToMono(ArticleEntity.class)
                 .block();
 
-        return PostDto.PostOutputDto.builder()
+        return PostDto.OutputDto.builder()
                 .id(created.getId())
                 .userId(created.getUserId())
                 .title(created.getTitle())

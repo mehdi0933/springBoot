@@ -14,10 +14,10 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/")
 public class HunyuanAiRestController {
-    private LlmAiInterface mistralService;
+    private LlmAiInterface LlmAi;
 
-    public HunyuanAiRestController (LlmAiInterface mistralService) {
-        this.mistralService = mistralService;
+    public HunyuanAiRestController (LlmAiInterface LlmAi) {
+        this.LlmAi = LlmAi;
     }
 
     @GetMapping("Hunyuan")
@@ -52,7 +52,7 @@ public class HunyuanAiRestController {
         String apiResponse = response.body();
 
         LlmAiDto.InputDto inputDto = new LlmAiDto.InputDto(promptMsg, apiKey, url, model);
-        mistralService.save(inputDto);
+        LlmAi.save(inputDto);
 
 
         System.out.println("La réponse de AI : " + apiResponse);

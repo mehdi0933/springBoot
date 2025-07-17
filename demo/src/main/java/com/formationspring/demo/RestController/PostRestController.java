@@ -9,20 +9,20 @@ import org.springframework.web.bind.annotation.*;
 
 public class PostRestController {
 
-    private final PostInterface api;
+    private final PostInterface Post;
 
-    public PostRestController(PostInterface api) {
-        this.api = api;
+    public PostRestController(PostInterface Post) {
+        this.Post = Post;
     }
 
-    @GetMapping("api/{id}")
+    @GetMapping("Post/{id}")
     public PostDto.OutputDto getPost(@PathVariable int id) {
-        return api.findPostById(id);
+        return Post.findPostById(id);
     }
 
-    @PostMapping("api")
+    @PostMapping("Post")
     public PostDto.OutputDto createPost(@RequestBody PostDto.InputDto postInput) {
-        return api.createPost(PostDto.fromInput(postInput));
+        return Post.createPost(PostDto.fromInput(postInput));
     }
 }
 

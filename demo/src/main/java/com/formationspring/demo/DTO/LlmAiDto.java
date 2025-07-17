@@ -52,14 +52,14 @@ public class LlmAiDto {
                 .build();
     }
 
-    public static OutputDto toOutput(LlmAiDto mistralDto) {
+    public static OutputDto toOutput(LlmAiDto outputDto) {
         return OutputDto.builder()
-                .id(mistralDto.getId())
-                .promptMsg(mistralDto.getPromptMsg())
-                .apiKey(mistralDto.getApiKey())
-                .url(mistralDto.getUrl())
-                .model(mistralDto.getModel())
-                .searchDateTime(mistralDto.getSearchDateTime())
+                .id(outputDto.getId())
+                .promptMsg(outputDto.getPromptMsg())
+                .apiKey(outputDto.getApiKey())
+                .url(outputDto.getUrl())
+                .model(outputDto.getModel())
+                .searchDateTime(outputDto.getSearchDateTime())
                 .build();
     }
 }

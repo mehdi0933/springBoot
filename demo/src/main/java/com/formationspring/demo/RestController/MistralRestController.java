@@ -16,10 +16,10 @@ import java.time.LocalDateTime;
 @RequestMapping("/")
 public class MistralRestController {
 
-    private final LlmAiInterface mistralService;
+    private final LlmAiInterface LlmAi;
 
-    public MistralRestController(LlmAiInterface mistralService) {
-        this.mistralService = mistralService;
+    public MistralRestController(LlmAiInterface LlmAi) {
+        this.LlmAi = LlmAi;
     }
 
     @GetMapping("ai")
@@ -52,7 +52,7 @@ public class MistralRestController {
         String apiResponse = response.body();
 
         LlmAiDto.InputDto inputDto = new LlmAiDto.InputDto(promptMsg, apiKey, url, model);
-        mistralService.save(inputDto);
+        LlmAi.save(inputDto);
 
 
         System.out.println("La réponse de AI : " + apiResponse);

@@ -2,8 +2,8 @@ package com.formationspring.demo.services;
 
 import com.formationspring.demo.DAL.UserRepositoryJpa;
 import com.formationspring.demo.DTO.UserDataAccesDto;
-import com.formationspring.demo.DTO.UserDataAccesDto.UserInputDto;
-import com.formationspring.demo.DTO.UserDataAccesDto.UserOutputDto;
+import com.formationspring.demo.DTO.UserDataAccesDto.InputDto;
+import com.formationspring.demo.DTO.UserDataAccesDto.OutputDto;
 import com.formationspring.demo.entity.UserDataAccesEntity;
 import com.formationspring.demo.services.Interface.UserDataAccesInterface;
 import org.springframework.stereotype.Service;
@@ -21,9 +21,9 @@ public class UserDataAccesService implements UserDataAccesInterface {
     }
 
     @Override
-    public List<UserOutputDto> getAllUsers() {
+    public List<OutputDto> getAllUsers() {
         List<UserDataAccesEntity> entities = userRepositoryJpa.findAll();
-        List<UserOutputDto> outputList = new ArrayList<>();
+        List<OutputDto> outputList = new ArrayList<>();
 
         for (UserDataAccesEntity entity : entities) {
             UserDataAccesDto dto = UserDataAccesDto.builder()
@@ -39,17 +39,17 @@ public class UserDataAccesService implements UserDataAccesInterface {
     }
 
     @Override
-    public List<UserOutputDto> saveAllUsers(List<UserInputDto> users) {
+    public List<OutputDto> saveAllUsers(List<InputDto> users) {
         List<UserDataAccesEntity> entitiesToSave = new ArrayList<>();
 
-        for (UserInputDto inputDto : users) {
+        for (InputDto inputDto : users) {
             UserDataAccesDto dto = UserDataAccesDto.fromInput(inputDto);
             UserDataAccesEntity entity = new UserDataAccesEntity(dto.getId(), dto.getFirstName(), dto.getLastName());
             entitiesToSave.add(entity);
         }
 
         List<UserDataAccesEntity> savedEntities = userRepositoryJpa.saveAll(entitiesToSave);
-        List<UserOutputDto> outputList = new ArrayList<>();
+        List<OutputDto> outputList = new ArrayList<>();
 
         for (UserDataAccesEntity savedEntity : savedEntities) {
             UserDataAccesDto dto = UserDataAccesDto.builder()

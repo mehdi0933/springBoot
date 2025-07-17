@@ -16,12 +16,12 @@ public class PostRestController {
     }
 
     @GetMapping("api/{id}")
-    public PostDto.PostOutputDto getPost(@PathVariable int id) {
+    public PostDto.OutputDto getPost(@PathVariable int id) {
         return api.findPostById(id);
     }
 
     @PostMapping("api")
-    public PostDto.PostOutputDto createPost(@RequestBody PostDto.PostInputDto postInput) {
+    public PostDto.OutputDto createPost(@RequestBody PostDto.InputDto postInput) {
         return api.createPost(PostDto.fromInput(postInput));
     }
 }

@@ -1,5 +1,4 @@
 package com.formationspring.demo.RestController;
-
 import com.formationspring.demo.DTO.LlmAiDto;
 import com.formationspring.demo.services.Interface.LlmAiInterface;
 import org.springframework.http.ResponseEntity;
@@ -14,22 +13,23 @@ import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/")
-public class MistralRestController {
+public class HunyuanAiRestController {
+    private LlmAiInterface mistralService;
 
-    private final LlmAiInterface mistralService;
-
-    public MistralRestController(LlmAiInterface mistralService) {
+    public HunyuanAiRestController (LlmAiInterface mistralService) {
         this.mistralService = mistralService;
     }
 
-    @GetMapping("ai")
+    @GetMapping("Hunyuan")
     public ResponseEntity<String> search(
             @RequestParam String url,
             @RequestParam String apiKey,
-            @RequestParam String promptMsg
+            @RequestParam String promptMsg,
+            @RequestParam String model
     ) throws IOException, InterruptedException {
 
-        String model = "mistralai/mistral-7b-instruct:free";
+        //String model = "https://openrouter.ai/api/v1/chat/completions";
+        //String apiKey = "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";
 
         String requestBody = """
     {
@@ -58,5 +58,4 @@ public class MistralRestController {
         System.out.println("La réponse de AI : " + apiResponse);
         return ResponseEntity.ok(apiResponse + "\n" + LocalDateTime.now());
     }
-
 }

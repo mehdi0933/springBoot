@@ -4,6 +4,6 @@ import com.formationspring.demo.DTO.LlmAiDto;
 
 public interface LlmAiInterface {
 
-    void save(LlmAiDto.InputDto inputDto);
+    void save(LlmAiDto inputDto);
 
 }

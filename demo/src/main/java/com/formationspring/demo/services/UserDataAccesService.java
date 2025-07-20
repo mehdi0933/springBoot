@@ -2,9 +2,10 @@ package com.formationspring.demo.services;
 
 import com.formationspring.demo.DAL.UserRepositoryJpa;
 import com.formationspring.demo.DTO.UserDataAccesDto;
-import com.formationspring.demo.DTO.UserDataAccesDto.InputDto;
-import com.formationspring.demo.DTO.UserDataAccesDto.OutputDto;
+import com.formationspring.demo.DTO.UserDataAccesDto.Input;
+import com.formationspring.demo.DTO.UserDataAccesDto.Output;
 import com.formationspring.demo.entity.UserDataAccesEntity;
+import com.formationspring.demo.Mapper.UserDataAccesMapper; // ✅ Import du mapper
 import com.formationspring.demo.services.Interface.UserDataAccesInterface;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +22,9 @@ public class UserDataAccesService implements UserDataAccesInterface {
     }
 
     @Override
-    public List<OutputDto> getAllUsers() {
+    public List<Output> getAllUsers() {
         List<UserDataAccesEntity> entities = userRepositoryJpa.findAll();
-        List<OutputDto> outputList = new ArrayList<>();
+        List<Output> outputList = new ArrayList<>();
 
         for (UserDataAccesEntity entity : entities) {
             UserDataAccesDto dto = UserDataAccesDto.builder()
@@ -32,24 +33,24 @@ public class UserDataAccesService implements UserDataAccesInterface {
                     .lastName(entity.getLastName())
                     .build();
 
-            outputList.add(UserDataAccesDto.toOutput(dto));
+            outputList.add(UserDataAccesMapper.toOutput(dto)); // ✅
         }
 
         return outputList;
     }
 
     @Override
-    public List<OutputDto> saveAllUsers(List<InputDto> users) {
+    public List<Output> saveAllUsers(List<Input> users) {
         List<UserDataAccesEntity> entitiesToSave = new ArrayList<>();
 
-        for (InputDto inputDto : users) {
-            UserDataAccesDto dto = UserDataAccesDto.fromInput(inputDto);
+        for (Input inputDto : users) {
+            UserDataAccesDto dto = UserDataAccesMapper.fromInput(inputDto); // ✅
             UserDataAccesEntity entity = new UserDataAccesEntity(dto.getId(), dto.getFirstName(), dto.getLastName());
             entitiesToSave.add(entity);
         }
 
         List<UserDataAccesEntity> savedEntities = userRepositoryJpa.saveAll(entitiesToSave);
-        List<OutputDto> outputList = new ArrayList<>();
+        List<Output> outputList = new ArrayList<>();
 
         for (UserDataAccesEntity savedEntity : savedEntities) {
             UserDataAccesDto dto = UserDataAccesDto.builder()
@@ -58,16 +59,9 @@ public class UserDataAccesService implements UserDataAccesInterface {
                     .lastName(savedEntity.getLastName())
                     .build();
 
-            outputList.add(UserDataAccesDto.toOutput(dto));
+            outputList.add(UserDataAccesMapper.toOutput(dto)); // ✅
         }
 
         return outputList;
     }
 }
-
-
-
-
-
-
-

@@ -1,5 +1,7 @@
 package com.formationspring.demo.RestController;
 import com.formationspring.demo.DTO.LlmAiDto;
+import com.formationspring.demo.Mapper.LlmAiMapper;
+import com.formationspring.demo.entity.enums.AiModel;
 import com.formationspring.demo.services.Interface.LlmAiInterface;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,45 +19,57 @@ public class HunyuanAiRestController {
     private LlmAiInterface LlmAi;
 
     public HunyuanAiRestController (LlmAiInterface LlmAi) {
+
         this.LlmAi = LlmAi;
     }
 
-    @GetMapping("Hunyuan")
-    public ResponseEntity<String> search(
-            @RequestParam String url,
-            @RequestParam String apiKey,
-            @RequestParam String promptMsg,
-            @RequestParam String model
-    ) throws IOException, InterruptedException {
+    @PostMapping("Hunyuan")
+    public ResponseEntity<String> search(@RequestBody LlmAiDto.Input input) throws IOException, InterruptedException {
+        long start = System.currentTimeMillis();
 
-        //String model = "https://openrouter.ai/api/v1/chat/completions";
-        //String apiKey = "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";
+        String url = input.url();
+        String apiKey = input.apiKey();
+        AiModel model = input.model();
+        String promptMsg = input.promptMsg();
+
+
 
         String requestBody = """
     {
         "model": "%s",
         "messages": [
-            { "role": "user", "content": "%s" }
+            { "role": "user", "content": "tencent/hunyuan-a13b-instruct:free" }
         ]
     }
-    """.formatted(model, promptMsg);
+    """.formatted(model.toString(), promptMsg);
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("Content-Type", "application/json")
-                .header("Authorization", apiKey.trim())
+                .header("Authorization", "Bearer " + apiKey.trim())
                 .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         String apiResponse = response.body();
 
-        LlmAiDto.InputDto inputDto = new LlmAiDto.InputDto(promptMsg, apiKey, url, model);
-        LlmAi.save(inputDto);
+        long end = System.currentTimeMillis();
+        long duration = end - start;
+
+        LlmAiDto fullDto = LlmAiMapper.fromInputDto(input, duration);
+        LlmAi.save(fullDto);
 
 
         System.out.println("La réponse de AI : " + apiResponse);
         return ResponseEntity.ok(apiResponse + "\n" + LocalDateTime.now());
     }
 }
+/**
+ * {
+ *   "promptMsg": "Quelle est la capitale de la France ?",
+ *   "apiKey": "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",
+ *   "url": "https://openrouter.ai/api/v1/chat/completions",
+ *   "model":  "HUNYUAN"
+ * }
+ */

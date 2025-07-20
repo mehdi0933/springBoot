@@ -1,6 +1,8 @@
 package com.formationspring.demo.RestController;
 
 import com.formationspring.demo.DTO.LlmAiDto;
+import com.formationspring.demo.Mapper.LlmAiMapper;
+import com.formationspring.demo.entity.enums.AiModel;
 import com.formationspring.demo.services.Interface.LlmAiInterface;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,40 +21,45 @@ public class MistralRestController {
     private final LlmAiInterface LlmAi;
 
     public MistralRestController(LlmAiInterface LlmAi) {
+
         this.LlmAi = LlmAi;
     }
 
-    @GetMapping("ai")
-    public ResponseEntity<String> search(
-            @RequestParam String url,
-            @RequestParam String apiKey,
-            @RequestParam String promptMsg
-    ) throws IOException, InterruptedException {
+    @PostMapping("mistralai")
+    public ResponseEntity<String> search(@RequestBody LlmAiDto.Input input) throws IOException, InterruptedException {
+        long start = System.currentTimeMillis();
 
-        String model = "mistralai/mistral-7b-instruct:free";
+        String url = input.url();
+        String apiKey = input.apiKey();
+        AiModel model = input.model();
+        String promptMsg = input.promptMsg();
+
 
         String requestBody = """
     {
-        "model": "%s",
+        "model": "mistralai/mistral-7b-instruct:free",
         "messages": [
             { "role": "user", "content": "%s" }
         ]
     }
-    """.formatted(model, promptMsg);
+    """.formatted(model.toString(), promptMsg);
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("Content-Type", "application/json")
-                .header("Authorization", apiKey.trim())
+                .header("Authorization", "Bearer " + apiKey.trim())
                 .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         String apiResponse = response.body();
 
-        LlmAiDto.InputDto inputDto = new LlmAiDto.InputDto(promptMsg, apiKey, url, model);
-        LlmAi.save(inputDto);
+        long end = System.currentTimeMillis();
+        long duration = end - start;
+
+        LlmAiDto fullDto = LlmAiMapper.fromInputDto(input, duration);
+        LlmAi.save(fullDto);
 
 
         System.out.println("La réponse de AI : " + apiResponse);
@@ -60,3 +67,11 @@ public class MistralRestController {
     }
 
 }
+/**
+ * {
+ *   "promptMsg": "Quelle est la capitale de la France ?",
+ *   "apiKey": "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",
+ *   "url": "https://openrouter.ai/api/v1/chat/completions",
+ *   "model": "MISTRAL_7B"
+ * }
+ */

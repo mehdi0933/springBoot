@@ -21,6 +21,7 @@ public class ArticleRestController {
         return postService.createPost(fromInput(postInput));
     }
 
+
     @GetMapping("/{id}")
     public ArticleDto.Output getPost(@PathVariable int id) {
         return postService.findPostById(id);

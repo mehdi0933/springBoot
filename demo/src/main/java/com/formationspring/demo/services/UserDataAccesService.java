@@ -5,7 +5,7 @@ import com.formationspring.demo.DTO.UserDataAccesDto;
 import com.formationspring.demo.DTO.UserDataAccesDto.Input;
 import com.formationspring.demo.DTO.UserDataAccesDto.Output;
 import com.formationspring.demo.entity.UserDataAccesEntity;
-import com.formationspring.demo.Mapper.UserDataAccesMapper; 
+import com.formationspring.demo.Mapper.UserDataAccesMapper;
 import com.formationspring.demo.services.Interface.UserDataAccesInterface;
 import org.springframework.stereotype.Service;
 

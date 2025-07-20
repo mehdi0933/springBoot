@@ -15,7 +15,7 @@ public enum AiModel {
         return modelName;
     }
 
-    @Override
+
     public String toString() {
         return modelName;
     }

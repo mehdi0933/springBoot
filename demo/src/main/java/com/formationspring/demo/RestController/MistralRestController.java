@@ -58,7 +58,7 @@ public class MistralRestController {
         long end = System.currentTimeMillis();
         long duration = end - start;
 
-        LlmAiDto fullDto = LlmAiMapper.fromInputDto(input, duration);
+        LlmAiDto fullDto = LlmAiMapper.fromInput(input, duration);
         LlmAi.save(fullDto);
 
 

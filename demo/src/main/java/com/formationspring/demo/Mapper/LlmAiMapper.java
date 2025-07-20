@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Component
 public class LlmAiMapper {
 
-    public static LlmAiDto fromInputDto(LlmAiDto.Input input, long durationMS) {
+    public static LlmAiDto fromInput(LlmAiDto.Input input, long durationMS) {
         return new LlmAiDto(
                 input.promptMsg(),
                 input.apiKey(),
@@ -19,7 +19,7 @@ public class LlmAiMapper {
         );
     }
 
-    public static LlmAiDto.Output toOutputDto(LlmAiDto dto) {
+    public static LlmAiDto.Output toOutput(LlmAiDto dto) {
         return new LlmAiDto.Output(
                 dto.promptMsg(),
                 dto.apiKey(),

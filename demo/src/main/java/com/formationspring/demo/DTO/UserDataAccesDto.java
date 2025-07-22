@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.stream.DoubleStream;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,11 +16,13 @@ public class UserDataAccesDto {
     private String firstName;
     private String lastName;
 
+
+
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    public static class InputDto {
+    public static class Input {
         private Long id;
         private String firstName;
         private String lastName;
@@ -28,25 +32,9 @@ public class UserDataAccesDto {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    public static class OutputDto {
+    public static class Output {
         private Long id;
         private String firstName;
         private String lastName;
-    }
-
-    public static UserDataAccesDto fromInput(InputDto inputDto) {
-        return UserDataAccesDto.builder()
-                .id(inputDto.getId())
-                .firstName(inputDto.getFirstName())
-                .lastName(inputDto.getLastName())
-                .build();
-    }
-
-    public static OutputDto toOutput(UserDataAccesDto userDto) {
-        return OutputDto.builder()
-                .id(userDto.getId())
-                .firstName(userDto.getFirstName())
-                .lastName(userDto.getLastName())
-                .build();
     }
 }

@@ -1,6 +1,7 @@
 package com.formationspring.demo.entity;
 
 
+import com.formationspring.demo.entity.enums.AiModel;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,7 +23,9 @@ public class LlmAiRecordEntity {
     private String url;
     private String apiKey;
     private LocalDateTime searchDateTime;
-    private String model;
+    private long durationMs;
+   @Enumerated(EnumType.STRING)
+   private AiModel model;
 
 }
 

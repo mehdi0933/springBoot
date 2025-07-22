@@ -2,8 +2,7 @@ package com.formationspring.demo.services.Interface;
 
 import com.formationspring.demo.DTO.LlmAiDto;
 
-public interface LlmAiInterface {
+public interface AiModelExecutor {
 
-    void save(LlmAiDto inputDto);
-
+    String execute(LlmAiDto.PostInput input);
 }

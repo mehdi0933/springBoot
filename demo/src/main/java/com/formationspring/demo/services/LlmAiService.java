@@ -14,18 +14,23 @@ public class LlmAiService implements LlmAiInterface {
     private final LlmAiRepository mistralAiRepository;
 
     public LlmAiService(LlmAiRepository mistralAiRepository) {
+
         this.mistralAiRepository = mistralAiRepository;
     }
 
     @Override
-    public void save(LlmAiDto.InputDto inputDto) {
+    public void save(LlmAiDto inputDto) {
         LlmAiRecordEntity entity = new LlmAiRecordEntity();
-        entity.setPromptMsg(inputDto.getPromptMsg());
-        entity.setApiKey(inputDto.getApiKey());
-        entity.setUrl(inputDto.getUrl());
-        entity.setModel(inputDto.getModel());
+        entity.setPromptMsg(inputDto.promptMsg());
+        entity.setApiKey(inputDto.apiKey());
+        entity.setUrl(inputDto.url());
+        entity.setModel(inputDto.model());
         entity.setSearchDateTime(LocalDateTime.now());
-
+        entity.setDurationMs(inputDto.durationMs());
         mistralAiRepository.save(entity);
     }
+
+
+
+
 }

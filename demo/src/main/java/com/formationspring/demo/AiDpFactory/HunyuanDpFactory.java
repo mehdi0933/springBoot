@@ -4,6 +4,7 @@ import com.formationspring.demo.DTO.LlmAiDto;
 import com.formationspring.demo.entity.enums.AiModel;
 import com.formationspring.demo.mapper.LlmAiMapper;
 import com.formationspring.demo.services.Interface.LlmAiInterface;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.net.URI;
@@ -11,7 +12,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.LocalDateTime;
-
+@Component
 public class HunyuanDpFactory extends AiGeneriqueDpFactory {
 
     private final LlmAiInterface llmAi;
@@ -78,7 +79,7 @@ public class HunyuanDpFactory extends AiGeneriqueDpFactory {
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        String apiResponse = response.body();
+         this.aiReponse = response.body();
 
         long end = System.currentTimeMillis();
         long duration = end - start;
@@ -86,9 +87,9 @@ public class HunyuanDpFactory extends AiGeneriqueDpFactory {
         LlmAiDto fullDto = LlmAiMapper.fromInput(postInput);
         llmAi.save(fullDto);
 
-        System.out.println("La réponse de AI : " + apiResponse);
+        System.out.println("La réponse de AI : " + this.aiReponse);
         System.out.println("Durée de la requête : " + duration + "ms");
 
-        return response.body() + "\n" + LocalDateTime.now();
+        return this.aiReponse + "\n" + LocalDateTime.now();
     }
 }

@@ -4,6 +4,7 @@ import com.formationspring.demo.DTO.LlmAiDto;
 import com.formationspring.demo.entity.enums.AiModel;
 import com.formationspring.demo.mapper.LlmAiMapper;
 import com.formationspring.demo.services.Interface.LlmAiInterface;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.net.URI;
@@ -11,7 +12,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.LocalDateTime;
-
+@Component
 public class MistralDpFacory extends AiGeneriqueDpFactory{
 
     private final LlmAiInterface llmAi;

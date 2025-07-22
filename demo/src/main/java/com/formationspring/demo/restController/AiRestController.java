@@ -3,6 +3,7 @@ package com.formationspring.demo.restController;
 import com.formationspring.demo.DTO.LlmAiDto;
 import com.formationspring.demo.entity.enums.AiModel;
 import com.formationspring.demo.services.AiExecutorFactory;
+import com.formationspring.demo.services.AiExecutorReponseFactory;
 import com.formationspring.demo.services.GenericAiExecutor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,9 @@ public class AiRestController {
         try {
             GenericAiExecutor executor = aiExecutorFactory.getExecutor(input.model());
             String result = executor.execute(input);
-            return result;
+            AiExecutorReponseFactory reponseFactory = new AiExecutorReponseFactory(executor.getFactory());
+            String aiReponse = reponseFactory.getExecutorReponse().getAiReponse();
+            return result + aiReponse;
         } catch (IllegalArgumentException e) {
             return ("Modèle inconnu !");
         } catch (Exception e) {

@@ -1,5 +1,6 @@
 package com.formationspring.demo.services;
 
+import com.formationspring.demo.AiDpFactory.AiGeneriqueDpFactory;
 import com.formationspring.demo.DTO.LlmAiDto;
 import com.formationspring.demo.entity.enums.AiModel;
 import com.formationspring.demo.services.Interface.AiModelExecutor;
@@ -7,28 +8,23 @@ import com.formationspring.demo.services.Interface.AiModelExecutor;
 public class GenericAiExecutor implements AiModelExecutor {
 
     private final AiModel model;
+    private final AiGeneriqueDpFactory aiFactory;
 
-    public GenericAiExecutor(LlmAiService llmAiService, AiModel model) {
+    public GenericAiExecutor(AiGeneriqueDpFactory aiFactory, AiModel model) {
+        this.aiFactory = aiFactory;
         this.model = model;
     }
 
     @Override
     public String execute(LlmAiDto.PostInput input) {
-        switch (model) {
-            case MISTRAL:
-                return executeMistral(input.promptMsg());
-            case HUNYUAN:
-                return executeHunyuan(input.promptMsg());
-            default:
-                return "Modèle inconnu : " + model;
+        try {
+            return aiFactory.search(input);
+        } catch (Exception e) {
+            return "Erreur lors de l'appel AI : " + e.getMessage();
         }
     }
 
-    private String executeMistral(String promptMsg) {
-        return "Mistral répond à : " + promptMsg;
-    }
-
-    private String executeHunyuan(String promptMsg) {
-        return "Hunyuan répond à : " + promptMsg;
+    public AiGeneriqueDpFactory getFactory() {
+        return this.aiFactory;
     }
 }

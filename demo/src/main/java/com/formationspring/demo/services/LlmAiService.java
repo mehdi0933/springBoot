@@ -1,0 +1,36 @@
+package com.formationspring.demo.services;
+
+import com.formationspring.demo.DAL.LlmAiRepository;
+import com.formationspring.demo.DTO.LlmAiDto;
+import com.formationspring.demo.entity.LlmAiRecordEntity;
+import com.formationspring.demo.services.Interface.LlmAiInterface;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+
+@Service
+public class LlmAiService implements LlmAiInterface {
+
+    private final LlmAiRepository mistralAiRepository;
+
+    public LlmAiService(LlmAiRepository mistralAiRepository) {
+
+        this.mistralAiRepository = mistralAiRepository;
+    }
+
+    @Override
+    public void save(LlmAiDto inputDto) {
+        LlmAiRecordEntity entity = new LlmAiRecordEntity();
+        entity.setPromptMsg(inputDto.promptMsg());
+        entity.setApiKey(inputDto.apiKey());
+        entity.setUrl(inputDto.url());
+        entity.setModel(inputDto.model());
+        entity.setSearchDateTime(LocalDateTime.now());
+        entity.setDurationMs(inputDto.durationMs());
+        mistralAiRepository.save(entity);
+    }
+
+
+
+
+}

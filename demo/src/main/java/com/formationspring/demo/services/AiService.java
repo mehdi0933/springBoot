@@ -1,0 +1,24 @@
+package com.formationspring.demo.services;
+
+import com.formationspring.demo.DtoIa.AbstractAiSearch;
+import com.formationspring.demo.DTO.LlmAiDto;
+import com.formationspring.demo.entity.enums.AiModel;
+import com.formationspring.demo.tools.AiSearchFactory;
+import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+
+@Service
+public class AiService {
+
+    private final AiSearchFactory aiSearchFactory;
+
+    public AiService(AiSearchFactory aiSearchFactory) {
+        this.aiSearchFactory = aiSearchFactory;
+    }
+
+    public String sendAiAPIRequest(AiModel model, LlmAiDto.PostInput input) throws IOException, InterruptedException {
+        AbstractAiSearch aiSearch = aiSearchFactory.getAiSearch(model);
+        return aiSearch.callAip(input);
+    }
+}

@@ -18,7 +18,7 @@ public class AiRestController {
 
     @PostMapping("/search")
     public String search( @RequestBody LlmAiDto.PostInput input) throws IOException, InterruptedException  {
-        return aiService.sendAiAPIRequest(input.model(), input);
+        return aiService.sendAiAPIRequest(input);
     }
 }
 

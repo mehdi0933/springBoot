@@ -17,8 +17,8 @@ public class AiService {
         this.aiSearchFactory = aiSearchFactory;
     }
 
-    public String sendAiAPIRequest(AiModel model, LlmAiDto.PostInput input) throws IOException, InterruptedException {
-        AbstractAiSearch aiSearch = aiSearchFactory.getAiSearch(model);
+    public String sendAiAPIRequest( LlmAiDto.PostInput input) throws IOException, InterruptedException {
+        AbstractAiSearch aiSearch = aiSearchFactory.getAiSearch(input.model());
         return aiSearch.callAip(input);
     }
 }

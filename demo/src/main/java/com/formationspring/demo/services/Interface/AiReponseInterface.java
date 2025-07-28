@@ -1,7 +1,10 @@
-package com.formationspring.demo.services.Interface;
+/**package com.formationspring.demo.services.Interface;
 
-import com.formationspring.demo.services.AiExecutorFactory;
+import com.formationspring.demo.tools.AIHTTPAccessor;
 
 public interface AiReponseInterface {
-    String Aireponse(AiExecutorFactory aiReponse);
+    String Aireponse(AIHTTPAccessor aiReponse);
+    String promptMsg(AIHTTPAccessor promptMsg);
+
 }
+*/
